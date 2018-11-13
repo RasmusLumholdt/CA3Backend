@@ -15,7 +15,7 @@ import exceptions.AuthenticationException;
 public class UserFacade {
 
     //Default EntityManagerFactory
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpapu");
     private static final UserFacade instance = new UserFacade();
     
     private UserFacade(){}
@@ -30,7 +30,7 @@ public class UserFacade {
         try {
             user = em.find(User.class, username);
             if (user == null || !user.verifyPassword(password)) {
-                throw new AuthenticationException("Invalid user name or password");
+                throw new AuthenticationException("Invalid username or password");
             }
         } finally {
             em.close();
