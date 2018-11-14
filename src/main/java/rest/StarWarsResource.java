@@ -36,10 +36,10 @@ public class StarWarsResource {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("/test")
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        return "HEJ";
     }
 
     /**

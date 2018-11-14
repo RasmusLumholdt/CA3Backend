@@ -29,6 +29,10 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(exceptions.GenericExceptionMapper.class);
+        resources.add(rest.StarWarsResource.class);
+        resources.add(security.JWTAuthenticationFilter.class);
+        resources.add(security.LoginEndpoint.class);
     }
     
 }

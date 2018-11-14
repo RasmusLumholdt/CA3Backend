@@ -13,7 +13,7 @@ public class CreateUsers {
         
         em.getTransaction().begin();
         
-        User u = new User("Test", "1234");
+        User u = new User("test1", "1234");
         em.persist(u);
         em.getTransaction().commit();
         
