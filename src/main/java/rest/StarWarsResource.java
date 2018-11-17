@@ -5,6 +5,7 @@
  */
 package rest;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.ws.rs.core.Context;
@@ -44,7 +45,7 @@ public class StarWarsResource {
     @GET
     @Path("/people/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPersonById(@PathParam("id") int id) {
+    public Response getPersonById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
         return (Response) pool.submit(new SwapiResourceRequest("/people/" + id)).get();
     }
 
@@ -55,10 +56,10 @@ public class StarWarsResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/planet/{id}")
+    @Path("/planets/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlanetById(@PathParam("id") int id) {
-        return pool.submit(new SwapiResourceRequest("/planets/" + id));
+    public Response getPlanetById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/planets/" + id)).get();
     }
 
     /**
@@ -69,8 +70,8 @@ public class StarWarsResource {
     @GET
     @Path("/people")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllPeople() {
-        return pool.submit(new SwapiResourceRequest("/people"));
+    public Response getAllPeople() throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/people")).get();
     }
 
     /**
@@ -79,10 +80,10 @@ public class StarWarsResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/planet")
+    @Path("/planets")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllPlanets() {
-        return pool.submit(new SwapiResourceRequest("/planets"));
+    public Response getAllPlanets() throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/planets")).get();
     }
 
     /**
@@ -93,8 +94,8 @@ public class StarWarsResource {
     @GET
     @Path("/starships")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllStarships() {
-        return pool.submit(new SwapiResourceRequest("/starships"));
+    public Response getAllStarships() throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/starships")).get();
     }
 
     /**
@@ -106,8 +107,8 @@ public class StarWarsResource {
     @GET
     @Path("/starships/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStarshipById(@PathParam("id") int id) {
-        return pool.submit(new SwapiResourceRequest("/starships/" + id));
+    public Response getStarshipById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/starships/" + id)).get();
     }
 
     /**
@@ -118,8 +119,8 @@ public class StarWarsResource {
     @GET
     @Path("/films")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllFilms() {
-        return pool.submit(new SwapiResourceRequest("/films"));
+    public Response getAllFilms() throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/films")).get();
     }
 
     /**
@@ -131,8 +132,8 @@ public class StarWarsResource {
     @GET
     @Path("/films/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFilmsById(@PathParam("id") int id) {
-        return pool.submit(new SwapiResourceRequest("/films/" + id));
+    public Response getFilmsById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/films/" + id)).get();
     }
 
     /**
@@ -143,8 +144,8 @@ public class StarWarsResource {
     @GET
     @Path("/species")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllSpecies() {
-        return pool.submit(new SwapiResourceRequest("/films"));
+    public Response getAllSpecies() throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/films")).get();
     }
 
     /**
@@ -156,8 +157,8 @@ public class StarWarsResource {
     @GET
     @Path("/species/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSpeciesById(@PathParam("id") int id) {
-        return pool.submit(new SwapiResourceRequest("/species/" + id));
+    public Response getSpeciesById(@PathParam("id") int id) throws ExecutionException, InterruptedException {
+        return (Response) pool.submit(new SwapiResourceRequest("/species/" + id)).get();
     }
 
     /**
@@ -169,9 +170,9 @@ public class StarWarsResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/{type}/{id}/?page={page}")
+    @Path("/{type}/?page={page}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDataByPage(@PathParam("type") String type, @PathParam("id") int id, @PathParam("page") int page) {
-        return pool.submit(new SwapiResourceRequest("/" + type + "/" + id + "/?page=" + page));
+    public Response getDataByPage(@PathParam("type") String type, @PathParam("page") int page) throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/" + type + "/?page=" + page)).get();
     }
 }
