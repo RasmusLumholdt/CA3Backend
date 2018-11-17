@@ -10,10 +10,9 @@ import java.util.concurrent.Executors;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -39,24 +38,141 @@ public class StarWarsResource {
     /**
      * Retrieves representation of an instance of rest.StarWarsResource
      *
+     * @param id
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/test")
+    @Path("/people/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson() {
-        return (Response) pool.submit(new ResourceRequest("hej"));
+    public Response getPersonById(@PathParam("id") int id) {
+        return (Response) pool.submit(new SwapiResourceRequest("/people/" + id));
     }
 
     /**
-     * PUT method for updating or creating an instance of StarWarsResource
+     * Retrieves representation of an instance of rest.StarWarsResource
      *
-     * @param content representation for the resource
-     * @return a success or failed response
+     * @param id
+     * @return an instance of java.lang.String
      */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response putJson(String content) {
-        return (Response) pool.submit(new ResourceRequest(content));
+    @GET
+    @Path("/planet/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPlanetById(@PathParam("id") int id) {
+        return (Response) pool.submit(new SwapiResourceRequest("/planets/" + id));
+    }
+
+    /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/people")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPeople() {
+        return (Response) pool.submit(new SwapiResourceRequest("/people"));
+    }
+
+    /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/planet")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPlanets() {
+        return (Response) pool.submit(new SwapiResourceRequest("/planets"));
+    }
+    
+        /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/starships")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllStarships() {
+        return (Response) pool.submit(new SwapiResourceRequest("/starships"));
+    }
+    
+        /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @param id
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/starships/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStarshipById(@PathParam("id") int id) {
+        return (Response) pool.submit(new SwapiResourceRequest("/starships/" + id));
+    }
+    
+            /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/films")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllFilms() {
+        return (Response) pool.submit(new SwapiResourceRequest("/films"));
+    }
+    
+        /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @param id
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/films/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFilmsById(@PathParam("id") int id) {
+        return (Response) pool.submit(new SwapiResourceRequest("/films/" + id));
+    }
+    
+        
+            /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/species")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllSpecies() {
+        return (Response) pool.submit(new SwapiResourceRequest("/films"));
+    }
+    
+    /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @param id
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/species/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSpeciesById(@PathParam("id") int id) {
+        return (Response) pool.submit(new SwapiResourceRequest("/species/" + id));
+    }
+    
+    /**
+     * Retrieves representation of an instance of rest.StarWarsResource
+     *
+     * @param type
+     * @param id
+     * @param page
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("/{type}/{id}/?page={page}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDataByPage(@PathParam("type") String type, @PathParam("id") int id, @PathParam("page") int page) {
+        return (Response) pool.submit(new SwapiResourceRequest("/" + type + "/" + id + "/?page=" + page));
     }
 }

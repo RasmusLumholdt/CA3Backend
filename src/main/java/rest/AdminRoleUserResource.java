@@ -47,9 +47,9 @@ public class AdminRoleUserResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
+    public String getJSON() {
         //TODO return proper representation object
-        return (Response) pool.submit(new ResourceRequest(""));
+        return "hello!";
     }
 
     /**
@@ -60,7 +60,6 @@ public class AdminRoleUserResource {
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putJson(String content) {
-        return (Response) pool.submit(new ResourceRequest(content));
+    public void putJson(String content) {
     }
 }
