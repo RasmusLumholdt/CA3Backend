@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -170,9 +171,9 @@ public class StarWarsResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/{type}/?page={page}")
+    @Path("/paged/{type}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDataByPage(@PathParam("type") String type, @PathParam("page") int page) throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/" + type + "/?page=" + page)).get();
+    public Response getDataByPage(@PathParam("type") String type, @QueryParam("page") int page) throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/"+type+"/?page=" + page)).get();
     }
 }
