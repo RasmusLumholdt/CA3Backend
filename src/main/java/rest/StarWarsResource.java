@@ -44,122 +44,10 @@ public class StarWarsResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/people/{id}")
+    @Path("/{type}/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPersonById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/people/" + id)).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @param id
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/planets/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlanetById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/planets/" + id)).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/people")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllPeople() throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/people")).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/planets")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllPlanets() throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/planets")).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/starships")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllStarships() throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/starships")).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @param id
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/starships/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getStarshipById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/starships/" + id)).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/films")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllFilms() throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/films")).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @param id
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/films/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getFilmsById(@PathParam("id") int id) throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/films/" + id)).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/species")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllSpecies() throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/films")).get();
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.StarWarsResource
-     *
-     * @param id
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("/species/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getSpeciesById(@PathParam("id") int id) throws ExecutionException, InterruptedException {
-        return (Response) pool.submit(new SwapiResourceRequest("/species/" + id)).get();
+    public Response getDataById(@PathParam("type") String type, @PathParam("id") int id) throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/" + type + "/" + id)).get();
     }
 
     /**
@@ -171,9 +59,9 @@ public class StarWarsResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/paged/{type}")
+    @Path("/{type}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDataByPage(@PathParam("type") String type, @QueryParam("page") int page) throws InterruptedException, ExecutionException {
-        return (Response) pool.submit(new SwapiResourceRequest("/"+type+"/?page=" + page)).get();
+    public Response getData(@PathParam("type") String type, @QueryParam("page") int page) throws InterruptedException, ExecutionException {
+        return (Response) pool.submit(new SwapiResourceRequest("/" + type + "/?page=" + (page | 1))).get();
     }
 }
