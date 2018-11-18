@@ -20,35 +20,31 @@ import javax.ws.rs.core.SecurityContext;
  * @author wicktus
  */
 @Path("roles")
-public class UserRoleUserResource {
+public class RolesResource {
 
     @Context
     private UriInfo context;
-
+    
     @Context
     SecurityContext securityContext;
 
-    /**
-     * Retrieves representation of an instance of rest.UserRoleUserResource
-     *
-     * @return a response containing the appropriate JSON
-     */
+    
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("user")
     @RolesAllowed("user")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getUser() {
+    public String getFromUser(){
         String user = securityContext.getUserPrincipal().getName();
-        return "\"Hello from USER: " + user + "\"";
+        return "\"Hello from USER: "+ user+"\"";
     }
     
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("admin")
     @RolesAllowed("admin")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getAdmin() {
+    public String getFromAdmin() {
         String user = securityContext.getUserPrincipal().getName();
-        return "\"Hello from USER: " + user + "\"";
+        return "\"Hello from ADMIN: "+ user+"\"";
     }
 
 }
